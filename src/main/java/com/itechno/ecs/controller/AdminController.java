@@ -109,5 +109,15 @@ public class AdminController {
 			throw new AdminNotFoundException("Admin list not found");
 		}
 	}
+	
+	@GetMapping(value = "/sortAdminByFirstname")
+	public ResponseEntity<List<Admin>> sortAdminByFirstname(){
+		List<Admin> sortedList = adminService.sortAdminByFirstname();
+		if(!sortedList.isEmpty()) {
+			return new ResponseEntity<List<Admin>>(sortedList, HttpStatus.OK);
+		}else {
+			throw new AdminNotFoundException("Admin list not found");
+		}
+	}
 
 }

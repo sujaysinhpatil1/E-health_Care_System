@@ -21,7 +21,7 @@ public interface AdminDao extends CrudRepository<Admin, Integer>{
 	@Query(value = "select*from Admin;", nativeQuery = true)
 	List<Admin> getAllAdmin();
 	
-	@Query("select a from Admin a order by a.firstname")
+	@Query("select a from Admin a order by a.mobileno")
 	List<Admin> sortAdmin();
 	
 }
