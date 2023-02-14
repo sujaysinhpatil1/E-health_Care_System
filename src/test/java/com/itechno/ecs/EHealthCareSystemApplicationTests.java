@@ -72,11 +72,11 @@ class EHealthCareSystemApplicationTests {
 	public void testCreate() {
 		Admin admin = new Admin();
 		//admin.setId(1);
-		admin.setFirstname("Sujaysinh");
+		admin.setFirstname("Shambhu");
 		admin.setLastname("Patil");
-		admin.setUsername("sujay");
-		admin.setPassword("1234");
-		admin.setMobileno("12345678");
+		admin.setUsername("sha");
+		admin.setPassword("5203");
+		admin.setMobileno("50368271");
 		admin.setCity("Pune");
 		admin.setPincode("123456");
 		adminDao.addAdmin(admin);

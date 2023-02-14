@@ -1,6 +1,10 @@
 package com.itechno.ecs.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,9 +51,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Admin> sortAdminById() {
-		
-		return null;
+	public List<Admin> sortAdminByFirstname() {
+		List<Admin> adminList = adminDao.getAllAdmin();
+		//Comparator<Integer> adminIdSort = (i1,i2)->i1.get
+		List<Admin> sortedList = adminList.stream().sorted((p1, p2) -> (p1.getFirstname()).compareTo(p2.getFirstname())).collect(Collectors.toList());
+		return sortedList;
 	}
 
 }
