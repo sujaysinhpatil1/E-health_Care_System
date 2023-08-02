@@ -6,12 +6,15 @@ import com.itechno.ecs.entity.Admin;
 
 public interface AdminService {
 	
-	boolean addAdmin(Admin admin);
+	Admin saveAdmin(Admin admin);
 	boolean loginAdmin(String username, String password);
 	boolean deleteAdminById(int id);
 	Admin getAdminById(int id);
 	List<Admin> getAllAdmin();
-	boolean updateAdmin(Admin admin);
+	Admin updateAdmin(Admin admin);
 	List<Admin> sortAdminByFirstname();
+	List<Admin> sortAdminByIdDesc();
+	List<Admin> sortAdminByIdDescTop3();
+	List<Admin> sortAdminByIdDescIgnoreTop3();
 	
 }

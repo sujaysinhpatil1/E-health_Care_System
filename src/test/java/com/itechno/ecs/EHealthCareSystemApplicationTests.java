@@ -37,20 +37,20 @@ class EHealthCareSystemApplicationTests {
 	
 	// API testing
 	// append method written in controller with Test word
-//	@Test
-//	@Order(1)
-//	public void getAdminByIdTest() throws URISyntaxException {
-//
-//		System.out.println("Test started");
-//		RestTemplate restTemplate = new RestTemplate();
-//		String url = "http://localhost:8080/getAdminById/1";   		// url can be created dynamically
-//		URI uri = new URI(url);
-//		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
-//		Assertions.assertEquals(200, response.getStatusCodeValue());  // HTTP status code --> success or fail
-//		System.out.println(response.getStatusCode());
-//		System.out.println("Test ended");
-//
-//	}
+	@Test
+	@Order(1)
+	public void getAdminByIdTest() throws URISyntaxException {
+
+		System.out.println("Test started");
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://localhost:8080/getAdminById/1";   		// url can be created dynamically
+		URI uri = new URI(url);
+		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+		Assertions.assertEquals(200, response.getStatusCodeValue());  // HTTP status code --> success or fail
+		System.out.println(response.getStatusCode());
+		System.out.println("Test ended");
+
+	}
 	
 //	@Test
 //	@Order(2)
@@ -67,22 +67,22 @@ class EHealthCareSystemApplicationTests {
 //
 //	}
 	
-	@Test
-	@Order(1)
-	public void testCreate() {
-		Admin admin = new Admin();
-		//admin.setId(1);
-		admin.setFirstname("Shambhu");
-		admin.setLastname("Patil");
-		admin.setUsername("sha");
-		admin.setPassword("5203");
-		admin.setMobileno("50368271");
-		admin.setCity("Pune");
-		admin.setPincode("123456");
-		adminDao.addAdmin(admin);
-		assertNotNull(adminDao.getAdminById(1));
-	}
-
+//	@Test
+//	@Order(1)
+//	public void testCreate() {
+//		Admin admin = new Admin();
+//		//admin.setId(1);
+//		admin.setFirstname("Sujaysinh");
+//		admin.setLastname("Patil");
+//		admin.setUsername("sujay");
+//		admin.setPassword("4321");
+//		admin.setMobileno("12345678");
+//		admin.setCity("Pune");
+//		admin.setPincode("123456");
+//		adminDao.addAdmin(admin);
+//		assertNotNull(adminDao.getAdminById(1));
+//	}
+//
 //	@Test
 //	@Order(2)
 //	public void testUpdate() {
@@ -99,7 +99,7 @@ class EHealthCareSystemApplicationTests {
 //		Admin admin = adminDao.getAdminById(2);
 //		assertEquals("Sujaysinh", admin.getFirstname());
 //	}
-//	
+	
 //	@Test
 //	@Order(4)
 //	public void testDelete() {
