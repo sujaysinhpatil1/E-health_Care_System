@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.itechno.ecs.dao.AdminDao;
 import com.itechno.ecs.entity.Admin;
+import com.itechno.ecs.repository.AdminRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -16,9 +17,12 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao adminDao;
 
+	@Autowired
+	private AdminRepository adminRepository;
+
 	@Override
 	public Admin saveAdmin(Admin admin) {
-		return adminDao.save(admin);
+		return adminRepository.save(admin);
 	}
 
 	@Override
@@ -30,8 +34,8 @@ public class AdminServiceImpl implements AdminService {
 	public boolean deleteAdminById(int id) {
 		Admin isPresent = getAdminById(id);
 		boolean isDeleted = false;
-		if(isPresent != null) {
-			adminDao.deleteById(id);
+		if (isPresent != null) {
+			adminRepository.deleteById(id);
 			isDeleted = true;
 		}
 		return isDeleted;
@@ -39,7 +43,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin getAdminById(int id) {
-		Optional<Admin> opt = adminDao.findById(id);
+		Optional<Admin> opt = adminRepository.findById(id);
 		if (opt.isPresent()) {
 			return opt.get();
 		} else {
@@ -48,18 +52,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<Admin> getAdminByFirstName(String name) {
+		List<Admin> adminList = adminRepository.getAdminByFirstName(name);
+		return adminList;
+	}
+
+	@Override
 	public List<Admin> getAllAdmin() {
-		return adminDao.findAll();
+		return adminRepository.findAll();
 	}
 
 	@Override
 	public Admin updateAdmin(Admin admin) {
-		return adminDao.save(admin);
+		return adminRepository.save(admin);
+	}
+
+	@Override
+	public List<Admin> sortAdminById() {
+		List<Admin> adminList = adminRepository.findAll().stream().sorted((i1, i2) -> (i1.getId() - i2.getId()))
+				.collect(Collectors.toList());
+		return adminList;
 	}
 
 	@Override
 	public List<Admin> sortAdminByFirstname() {
-		List<Admin> adminList = adminDao.getAllAdmin();
+		List<Admin> adminList = adminRepository.getAllAdmin();
 		// Comparator<Integer> adminIdSort = (i1,i2)->i1.get
 		List<Admin> sortedList = adminList.stream().sorted((p1, p2) -> (p1.getFirstname()).compareTo(p2.getFirstname()))
 				.collect(Collectors.toList());
@@ -68,7 +85,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Admin> sortAdminByIdDesc() {
-		List<Admin> adminList = adminDao.getAllAdmin();
+		List<Admin> adminList = adminRepository.getAllAdmin();
 		List<Admin> sortedList = adminList.stream().sorted((i1, i2) -> (i2.getId() - i1.getId()))
 				.collect(Collectors.toList());
 		return sortedList;
@@ -76,7 +93,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Admin> sortAdminByIdDescTop3() {
-		List<Admin> adminList = adminDao.getAllAdmin();
+		List<Admin> adminList = adminRepository.getAllAdmin();
 		List<Admin> sortedList = adminList.stream().sorted((i1, i2) -> (i2.getId() - i1.getId())).limit(3)
 				.collect(Collectors.toList());
 		return sortedList;
@@ -84,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Admin> sortAdminByIdDescIgnoreTop3() {
-		List<Admin> adminList = adminDao.getAllAdmin();
+		List<Admin> adminList = adminRepository.getAllAdmin();
 		List<Admin> sortedList = adminList.stream().sorted((i1, i2) -> (i2.getId() - i1.getId())).skip(3)
 				.collect(Collectors.toList());
 		return sortedList;

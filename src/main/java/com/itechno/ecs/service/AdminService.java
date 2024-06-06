@@ -10,8 +10,10 @@ public interface AdminService {
 	boolean loginAdmin(String username, String password);
 	boolean deleteAdminById(int id);
 	Admin getAdminById(int id);
+	List<Admin> getAdminByFirstName(String name);
 	List<Admin> getAllAdmin();
 	Admin updateAdmin(Admin admin);
+	List<Admin> sortAdminById();
 	List<Admin> sortAdminByFirstname();
 	List<Admin> sortAdminByIdDesc();
 	List<Admin> sortAdminByIdDescTop3();

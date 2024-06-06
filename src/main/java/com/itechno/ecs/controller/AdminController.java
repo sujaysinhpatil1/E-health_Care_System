@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itechno.ecs.dao.AdminDao;
 import com.itechno.ecs.entity.Admin;
 import com.itechno.ecs.exception.AdminNotFoundException;
 import com.itechno.ecs.service.AdminService;
@@ -30,9 +29,6 @@ import com.itechno.ecs.service.AdminService;
 public class AdminController {
 
 	private static Logger LOG = LogManager.getLogger(AdminController.class);
-
-	@Autowired
-	private AdminDao adminDao;
 
 	@Autowired
 	private AdminService adminService;
@@ -65,7 +61,18 @@ public class AdminController {
 		if (admin != null) {
 			return new ResponseEntity<Admin>(admin, HttpStatus.OK);
 		} else {
-			throw new AdminNotFoundException("Admin not found for id : " + id);
+			throw new AdminNotFoundException("Admin not found with id : " + id);
+		}
+	}
+	
+	@GetMapping("/getAdminByFirstName/{name}")
+	public ResponseEntity<List<Admin>> getAdminByName(@PathVariable String name) {
+		List<Admin> adminList = adminService.getAdminByFirstName(name);
+		if(adminList != null) {
+			return new ResponseEntity<List<Admin>>(adminList, HttpStatus.OK);
+		} else {
+			throw new AdminNotFoundException("Admin not found for n with name : " + name);
+//			return new ResponseEntity<List<Admin>>(adminList, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -104,7 +111,7 @@ public class AdminController {
 
 	@GetMapping(value = "/sortAdmin")
 	public ResponseEntity<List<Admin>> sortAdmin() {
-		List<Admin> sortedList = adminDao.sortAdmin();
+		List<Admin> sortedList = adminService.sortAdminById();
 		if (!sortedList.isEmpty()) {
 			return new ResponseEntity<List<Admin>>(sortedList, HttpStatus.OK);
 		} else {
@@ -124,7 +131,7 @@ public class AdminController {
 
 	@GetMapping(value = "/sortAdminByFirstnameWithCount")
 	public ResponseEntity<Map<String, Set<Admin>>> sortAdminByFirstnameWithCount() {
-		List<Admin> list = adminDao.getAllAdmin();
+		List<Admin> list = adminService.getAllAdmin();
 
 		Map<String, Set<Admin>> sortedMap = list.stream()
 				.collect(Collectors.groupingBy(a -> a.getFirstname(), Collectors.toSet()));

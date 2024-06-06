@@ -15,7 +15,7 @@
 	<name>E-health_Care_System</name>
 	<description>Demo project for Spring Boot &amp; MVC</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<!-- packaging>War</packaging -->
 	
